@@ -28,7 +28,7 @@ export default function AnalyticsPage() {
   useEffect(() => {
     const fetchAnalytics = async () => {
       try {
-        const response = await fetch(`http://localhost:5000/api/profile/user/analytics?range=${timeRange}`, {
+        const response = await fetch(`https://link-hub-api.vercel.app/api/profile/user/analytics?range=${timeRange}`, {
           headers: {
             'Authorization': `Bearer ${token}`,
           },

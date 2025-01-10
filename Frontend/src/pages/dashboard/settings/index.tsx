@@ -36,7 +36,7 @@ export default function SettingsPage() {
   useEffect(() => {
     const fetchSettings = async () => {
       try {
-        const response = await fetch('http://localhost:5000/api/settings', {
+        const response = await fetch('https://link-hub-api.vercel.app/api/settings', {
           headers: {
             'Authorization': `Bearer ${token}`
           }
@@ -74,7 +74,7 @@ export default function SettingsPage() {
         updateData.password = password;
       }
 
-      const response = await fetch('http://localhost:5000/api/settings', {
+      const response = await fetch('https://link-hub-api.vercel.app/api/settings', {
         method: 'PUT',
         headers: {
           'Content-Type': 'application/json',

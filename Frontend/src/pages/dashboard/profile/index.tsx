@@ -64,7 +64,7 @@ export default function ProfileEditor() {
   useEffect(() => {
     const fetchProfile = async () => {
       try {
-        const response = await fetch('http://localhost:5000/api/profile', {
+        const response = await fetch('https://link-hub-api.vercel.app/api/profile', {
           headers: {
             'Authorization': `Bearer ${token}`,
           },
@@ -96,7 +96,7 @@ export default function ProfileEditor() {
       formData.append('image', file)
 
       try {
-        const response = await fetch('http://localhost:5000/api/profile/upload', {
+        const response = await fetch('https://link-hub-api.vercel.app/api/profile/upload', {
           method: 'POST',
           headers: {
             'Authorization': `Bearer ${token}`,
@@ -130,7 +130,7 @@ export default function ProfileEditor() {
       formData.append('image', file)
 
       try {
-        const response = await fetch('http://localhost:5000/api/profile/upload', {
+        const response = await fetch('https://link-hub-api.vercel.app/api/profile/upload', {
           method: 'POST',
           headers: {
             'Authorization': `Bearer ${token}`,
@@ -215,7 +215,7 @@ export default function ProfileEditor() {
   const handleSaveProfile = async () => {
     setSaving(true)
     try {
-      const response = await fetch('http://localhost:5000/api/profile', {
+      const response = await fetch('https://link-hub-api.vercel.app/api/profile', {
         method: 'PUT',
         headers: {
           'Content-Type': 'application/json',

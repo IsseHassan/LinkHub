@@ -190,7 +190,7 @@ export default function Profile() {
   useEffect(() => {
     const fetchProfile = async () => {
       try {
-        const response = await fetch(`http://localhost:5000/api/profile/${username}`, {
+        const response = await fetch(`https://link-hub-api.vercel.app/api/profile/${username}`, {
           headers: { Authorization: `Bearer ${token}` },
         });
         

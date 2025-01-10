@@ -13,7 +13,13 @@ const app = express();
 const PORT = process.env.PORT || 5000;
 
 // Middleware
-app.use(cors());
+app.use(cors(
+  {
+    origin: ['http://localhost:5173', 'https://link-hub-api.vercel.app'],
+    credentials: true,
+    methods: ['GET', 'POST', 'PUT', 'DELETE']
+  }
+));
 app.set('trust proxy', true)
 app.use(express.json());
 app.use(cookieParser());
