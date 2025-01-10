@@ -72,7 +72,7 @@ export default function ProfileEditor() {
         if (response.ok) {
           const data = await response.json();
           setProfile(data);
-          setUniqueLink(`http://localhost:5173/profile?username=${data.displayName}`);
+          setUniqueLink(`https://new-linkhub.vercel.app/profile?username=${data.displayName}`);
         }
       } catch (error) {
         console.error('Error fetching profile:', error);
