@@ -164,7 +164,7 @@ export default function AnalyticsPage() {
                       fill="#8884d8"
                       label
                     >
-                      {analytics.devices.map((entry, index) => (
+                      {analytics.devices.map((_entry, index) => (
                         <Cell key={`cell-${index}`} fill={COLORS[index % COLORS.length]} />
                       ))}
                     </Pie>
