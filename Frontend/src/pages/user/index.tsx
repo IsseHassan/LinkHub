@@ -85,7 +85,7 @@ const ProfileLink: React.FC<{ link: ProfileLink }> = ({ link }) => (
       className="w-full h-12 group relative overflow-hidden rounded-xs bg-white hover:bg-white/90 text-zinc-900 border-2 border-zinc-700/25 transition-all duration-200"
       asChild
     >
-      <Link to={`http://localhost:5000/api/profile/click/${link.shortUrl}`} target="_blank" rel="noopener noreferrer" className="flex items-center px-4">
+      <Link to={`https://link-hub-api.vercel.app/profile/click/${link.shortUrl}`} target="_blank" rel="noopener noreferrer" className="flex items-center px-4">
         <ExternalLink className="mr-1 h-4 w-4 text-zinc-500" />
         <span className="flex-1 text-left text-sm font-medium truncate">{link.title.charAt(0).toUpperCase() + link.title.slice(1)}</span>
       </Link>
@@ -130,14 +130,14 @@ const SocialIcons: React.FC<{ socials: SocialLinks }> = ({ socials }) => {
 
   
   const socialIcons = [
-    { key: 'twitter', Icon: Twitter, url: getSocialIcon('twitter') !== '' ? `http://localhost:5000/api/profile/click/${getSocialIcon('twitter')}` : null },
-    { key: 'facebook', Icon: Facebook, url: getSocialIcon('facebook') !== '' ? `http://localhost:5000/api/profile/click/${getSocialIcon('facebook')}` : null },
-    { key: 'instagram', Icon: Instagram, url: getSocialIcon('instagram') !== '' ? `http://localhost:5000/api/profile/click/${getSocialIcon('instagram')}` : null },
-    { key: 'spotify', Icon: Music2, url: getSocialIcon('spotify') !== '' ? `http://localhost:5000/api/profile/click/${getSocialIcon('spotify')}` : null },
-    { key: 'twitch', Icon: Twitch, url: getSocialIcon('twitch') !== '' ? `http://localhost:5000/api/profile/click/${getSocialIcon('twitch')}` : null },
-    { key: 'email', Icon: Mail, url: getSocialIcon('email') !== '' ? `http://localhost:5000/api/profile/click/${getSocialIcon('email')}` : null },
-    { key: 'linkedin', Icon: Linkedin, url: getSocialIcon('linkedin') !== '' ? `http://localhost:5000/api/profile/click/${getSocialIcon('linkedin')}` : null },
-    { key: 'github', Icon: GithubIcon, url: getSocialIcon('github') !== '' ? `http://localhost:5000/api/profile/click/${getSocialIcon('github')}` : null },
+    { key: 'twitter', Icon: Twitter, url: getSocialIcon('twitter') !== '' ? `https://link-hub-api.vercel.app/profile/click/${getSocialIcon('twitter')}` : null },
+    { key: 'facebook', Icon: Facebook, url: getSocialIcon('facebook') !== '' ? `https://link-hub-api.vercel.app/profile/click/${getSocialIcon('facebook')}` : null },
+    { key: 'instagram', Icon: Instagram, url: getSocialIcon('instagram') !== '' ? `https://link-hub-api.vercel.app/profile/click/${getSocialIcon('instagram')}` : null },
+    { key: 'spotify', Icon: Music2, url: getSocialIcon('spotify') !== '' ? `https://link-hub-api.vercel.app/profile/click/${getSocialIcon('spotify')}` : null },
+    { key: 'twitch', Icon: Twitch, url: getSocialIcon('twitch') !== '' ? `https://link-hub-api.vercel.app/profile/click/${getSocialIcon('twitch')}` : null },
+    { key: 'email', Icon: Mail, url: getSocialIcon('email') !== '' ? `https://link-hub-api.vercel.app/profile/click/${getSocialIcon('email')}` : null },
+    { key: 'linkedin', Icon: Linkedin, url: getSocialIcon('linkedin') !== '' ? `https://link-hub-api.vercel.app/profile/click/${getSocialIcon('linkedin')}` : null },
+    { key: 'github', Icon: GithubIcon, url: getSocialIcon('github') !== '' ? `https://link-hub-api.vercel.app/profile/click/${getSocialIcon('github')}` : null },
   ];
 
   return (
