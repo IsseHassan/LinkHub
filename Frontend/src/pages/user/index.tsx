@@ -25,16 +25,14 @@ interface Memory {
   imageUrl: string;
 }
 
+interface ProfileLink {
+  title: string;
+  shortUrl: string;
+}
+
+
 interface SocialLinks {
-  twitter?: string;
-  instagram?: string;
-  youtube?: string;
-  spotify?: string;
-  twitch?: string;
-  facebook?: string;
-  linkedin?: string;
-  github?: string;
-  email?: string;
+  links: ProfileLink[];
 }
 
 interface ProfileData {
@@ -120,10 +118,14 @@ const MemoryGrid: React.FC<{ memories: Memory[] }> = ({ memories }) => (
   </motion.div>
 );
 
-const SocialIcons: React.FC<{ socials?: SocialLinks }> = ({ socials }) => {
+const SocialIcons: React.FC<{ socials: SocialLinks }> = ({ socials }) => {
+  if (!socials || !socials.links) {
+    return null; // or return some fallback UI
+  }
+
   function getSocialIcon(title: string) {
-    const socialLink = socials.find((link) => link.title.toLowerCase() === title);
-    return socialLink ? socialLink.shortUrl : ''; 
+    const socialLink = socials.links.find((link: ProfileLink) => link.title.toLowerCase() === title);
+    return socialLink ? socialLink.shortUrl : '';
   }
 
   
@@ -256,7 +258,7 @@ export default function Profile() {
                 ))}
               </motion.div>
               {profile.memories.length > 0 && <MemoryGrid memories={profile.memories} />}
-              <SocialIcons socials={socials} />
+              <SocialIcons socials={{ links: socials }} />
             </CardContent>
           </Card>
 

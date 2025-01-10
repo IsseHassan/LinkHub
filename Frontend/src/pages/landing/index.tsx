@@ -48,7 +48,7 @@ const scaleIn = {
 function AnimatedSection({ children, className = "" }: { children: React.ReactNode, className?: string }) {
   const controls = useAnimation();
   const ref = React.useRef(null);
-  const isInView = useInView(ref, { once: true, threshold: 0.2 });
+  const isInView = useInView(ref, { once: true });
 
   useEffect(() => {
     if (isInView) {
@@ -159,7 +159,7 @@ function InfiniteLogoScroll() {
 
 // Enhanced feature card component
 interface FeatureCardProps {
-  icon: React.ComponentType;
+  icon: React.ComponentType<React.SVGProps<SVGSVGElement>>;
   title: string;
   description: string;
 }
@@ -857,13 +857,13 @@ function AnimatedCard({ icon, title, description, step, price, features, highlig
   date?: string;
 }) {
   const controls = useAnimation()
-  const [ref, inView] = useState(false)
+  const [inView, setInView] = useState(false);
 
   useEffect(() => {
     if (inView) {
-      controls.start({ opacity: 1, y: 0 })
+      controls.start({ opacity: 1, y: 0 });
     }
-  }, [controls, inView])
+  }, [controls, inView]);
 
   return (
     <motion.div
@@ -872,13 +872,13 @@ function AnimatedCard({ icon, title, description, step, price, features, highlig
           const observer = new IntersectionObserver(
             ([entry]) => {
               if (entry.isIntersecting) {
-                inView(true)
+                setInView(true);
               }
             },
             { threshold: 0.1 }
-          )
-          observer.observe(el)
-          return () => observer.disconnect()
+          );
+          observer.observe(el);
+          return () => observer.disconnect();
         }
       }}
       initial={{ opacity: 0, y: 20 }}
