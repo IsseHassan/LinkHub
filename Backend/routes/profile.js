@@ -11,7 +11,8 @@ import useragent from 'useragent';
 import { v4 as uuidv4 } from 'uuid';
 
 const router = express.Router();
-const upload = multer({ dest: 'uploads/' });
+// const upload = multer({ dest: 'uploads/' });
+const upload = multer({ storage: multer.memoryStorage() });
 
 // Middleware to authenticate user
 export const authenticateUser = (req, res, next) => {
@@ -31,17 +32,24 @@ export const authenticateUser = (req, res, next) => {
 };
 
 // Helper function to optimize image
-async function optimizeImage(file, width = 800, quality = 80) {
-  const optimizedImageBuffer = await sharp(file.path)
+async function optimizeImage(buffer, width = 800, quality = 80) {
+  return sharp(buffer)
     .resize(width)
     .webp({ quality })
     .toBuffer();
-
-  const optimizedFilePath = `${file.path}.webp`;
-  await fs.writeFile(optimizedFilePath, optimizedImageBuffer);
-
-  return optimizedFilePath;
 }
+
+// async function optimizeImage(file, width = 800, quality = 80) {
+//   const optimizedImageBuffer = await sharp(file.path)
+//     .resize(width)
+//     .webp({ quality })
+//     .toBuffer();
+
+//   const optimizedFilePath = `${file.path}.webp`;
+//   await fs.writeFile(optimizedFilePath, optimizedImageBuffer);
+
+//   return optimizedFilePath;
+// }
 
 // Upload image
 router.post('/upload', authenticateUser, upload.single('image'), async (req, res) => {
@@ -50,17 +58,18 @@ router.post('/upload', authenticateUser, upload.single('image'), async (req, res
       return res.status(400).json({ message: 'No file uploaded' });
     }
 
-    const optimizedFilePath = await optimizeImage(req.file);
+    // Optimize the image
+    const optimizedImageBuffer = await optimizeImage(req.file.buffer);
 
-    const result = await cloudinary.uploader.upload(optimizedFilePath, {
-      folder: 'linkhub',
-      use_filename: true,
-      unique_filename: false,
-    });
-
-    // Clean up temporary files
-    await fs.unlink(req.file.path);
-    await fs.unlink(optimizedFilePath);
+    // Upload the optimized image to Cloudinary
+    const result = await cloudinary.uploader.upload(
+      `data:image/webp;base64,${optimizedImageBuffer.toString('base64')}`,
+      {
+        folder: 'linkhub',
+        use_filename: true,
+        unique_filename: false,
+      }
+    );
 
     res.json({ imageUrl: result.secure_url });
   } catch (error) {
@@ -68,6 +77,30 @@ router.post('/upload', authenticateUser, upload.single('image'), async (req, res
     res.status(500).json({ message: 'Error uploading image', error: error.message });
   }
 });
+// router.post('/upload', authenticateUser, upload.single('image'), async (req, res) => {
+//   try {
+//     if (!req.file) {
+//       return res.status(400).json({ message: 'No file uploaded' });
+//     }
+
+//     const optimizedFilePath = await optimizeImage(req.file);
+
+//     const result = await cloudinary.uploader.upload(optimizedFilePath, {
+//       folder: 'linkhub',
+//       use_filename: true,
+//       unique_filename: false,
+//     });
+
+//     // Clean up temporary files
+//     await fs.unlink(req.file.path);
+//     await fs.unlink(optimizedFilePath);
+
+//     res.json({ imageUrl: result.secure_url });
+//   } catch (error) {
+//     console.error('Error uploading image:', error);
+//     res.status(500).json({ message: 'Error uploading image', error: error.message });
+//   }
+// });
 
 // Get user profile
 router.get('/', authenticateUser, async (req, res) => {
