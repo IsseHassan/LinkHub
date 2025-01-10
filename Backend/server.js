@@ -26,13 +26,15 @@ mongoose.connect(process.env.MONGODB_URI, {
 .then(() => console.log('Connected to MongoDB'))
 .catch((err) => console.error('MongoDB connection error:', err));
 
+app.get('/', (req, res) => {
+  res.send('Hello from Express!');
+});
+
+
 // Routes
 app.use('/api/auth', authRoutes);
 app.use('/api/profile', profileRoutes);
 app.use('/api/settings', settingsRoutes);
-app.get('/', (req, res) => {
-  res.send('Hello from Express!');
-});
 
 // Start server
 app.listen(PORT, () => {
