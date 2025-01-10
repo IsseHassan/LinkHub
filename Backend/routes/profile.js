@@ -312,7 +312,7 @@ function getDeviceDistribution(clickData) {
   const total = clickData.length;
   return Object.entries(devices).map(([device, count]) => ({
     device,
-    percentage: (count / total) * 100
+    percentage: ((count / total) * 100).toFixed(2)
   }));
 }
 
